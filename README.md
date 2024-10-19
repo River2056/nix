@@ -28,3 +28,12 @@ list all installed packages:
 ```zsh
 nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2-
 ```
+
+alternatively, you can list most of the programs you have installed by running
+```zsh
+ls /run/current-system/sw/bin/
+```
+and
+```zsh
+ls ~/.nix-profile/bin/
+```
