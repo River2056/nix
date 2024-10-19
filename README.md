@@ -5,7 +5,7 @@ sh <(curl -L https://nixos.org/nix/install)
 ```
 2. git clone this repo
 ```zsh
-nix-shell -p git --run "git clone "
+nix-shell -p git --run "git clone git@github.com:River2056/nix.git"
 ```
 
 3. run command:
@@ -22,4 +22,9 @@ update flakes and system packages:
 ```zsh
 nix flake update
 darwin-rebuild switch --flake ~/nix#river2056
+```
+
+list all installed packages:
+```zsh
+nix-store -q --references /var/run/current-system/sw | cut -d'-' -f2-
 ```

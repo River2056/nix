@@ -67,7 +67,7 @@
         ];
         casks = [
           "wezterm"
-          # "raycast"
+          "raycast"
         ];
         onActivation.autoUpdate = true;
         onActivation.upgrade = true;
