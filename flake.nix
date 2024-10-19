@@ -40,14 +40,17 @@
             pkgs.fzf
             pkgs.fd
             pkgs.ripgrep
-            pkgs.maven
-            pkgs.gradle
             pkgs.htop
             pkgs.delta
             pkgs.lazygit
             pkgs.luarocks-nix
             pkgs.jq
             pkgs.mkalias
+
+            # build systems
+            pkgs.maven
+            pkgs.gradle
+            pkgs.docker
 
             # languages
             pkgs.python3
@@ -71,6 +74,11 @@
         ];
         onActivation.autoUpdate = true;
         onActivation.upgrade = true;
+      };
+
+      system.defaults = {
+        dock.autohide = true;
+        NSGlobalDomain.AppleInterfaceStyle = "Dark";
       };
 
       system.activationScripts.applications.text = let
