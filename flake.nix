@@ -73,6 +73,7 @@
               luarocks-nix
               jq
               yq
+              nb
               gnumake
               mkalias
 
