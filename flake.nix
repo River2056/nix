@@ -75,6 +75,7 @@
               yq
               nb
               gnumake
+              sshpass
               mkalias
 
               # build systems
