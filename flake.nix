@@ -8,6 +8,10 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # install specific packages from a specific commit example
     # tmux 3.2
     # nixpkgs-pkg-tmux.url = "github:nixos/nixpkgs/9f8610e5dbb0b437b4f4ac9d65057cf7553218f2";
 
@@ -28,162 +32,30 @@
       self,
       nix-darwin,
       nixpkgs,
+      home-manager,
       ...
     }:
-
     let
+      # change user according to your machine if necessary
+      nixProfile = "river2056";
+      user = "tungchinchen";
       system = "aarch64-darwin";
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
       pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
-      configuration =
-        inputs@{
-          pkgs,
-          pkgs-stable,
-          config,
-          ...
-        }:
-        {
-          nixpkgs.config.allowUnfree = true;
-          # List packages installed in system profile. To search by name, run:
-          # $ nix-env -qaP | grep wget
-          environment.systemPackages =
-            (with pkgs; [
-              # shell
-              zsh
-
-              # editor
-              neovim
-
-              # utils
-              git
-              wget
-              curl
-              lftp
-              netcat-gnu
-              zoxide
-              eza
-              yazi
-              tree
-              bat
-              fzf
-              fd
-              ripgrep
-              htop
-              delta
-              lazygit
-              luarocks-nix
-              jq
-              yq
-              nb
-              gnumake
-              sshpass
-              mkalias
-
-              # build systems
-              maven
-              gradle
-              docker
-              ant
-
-              # languages
-              python3
-              go
-              jdk17
-              zig
-              lua5_1
-              nodejs
-              bun
-
-              # fonts
-              meslo-lgs-nf
-              fira-code-nerdfont
-
-              #nixfmt
-              nixfmt-rfc-style
-            ])
-            ++ (with pkgs-stable; [
-              # editor
-              vim
-
-              # utils
-              tmux
-              tmuxinator
-            ]);
-
-          environment.shells = with pkgs; [ zsh ];
-
-          homebrew = {
-            enable = true;
-            brews = [
-              "zsh-autosuggestions"
-              "zsh-syntax-highlighting"
-              "powerlevel10k"
-            ];
-            casks = [
-              "wezterm"
-              "raycast"
-            ];
-            onActivation.cleanup = "zap";
-            onActivation.autoUpdate = true;
-            onActivation.upgrade = true;
-          };
-
-          system.defaults = {
-            dock.autohide = true;
-            NSGlobalDomain.AppleInterfaceStyle = "Dark";
-          };
-
-          system.activationScripts.applications.text =
-            let
-              env = pkgs.buildEnv {
-                name = "system-applications";
-                paths = config.environment.systemPackages;
-                pathsToLink = "/Applications";
-              };
-            in
-            pkgs.lib.mkForce ''
-              # Set up applications.
-              echo "setting up /Applications..." >&2
-              rm -rf /Applications/Nix\ Apps
-              mkdir -p /Applications/Nix\ Apps
-              find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
-              while read src; do
-                  app_name=$(basename "$src")
-                  echo "copying $src" >&2
-                  ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
-              done
-            '';
-
-          # Auto upgrade nix package and the daemon service.
-          services.nix-daemon.enable = true;
-          # nix.package = pkgs.nix;
-
-          # Necessary for using flakes on this system.
-          nix.settings.experimental-features = "nix-command flakes";
-
-          # Create /etc/zshrc that loads the nix-darwin environment.
-          programs.zsh.enable = true; # default shell on catalina
-          # programs.fish.enable = true;
-
-          # Set Git commit hash for darwin-version.
-          system.configurationRevision = self.rev or self.dirtyRev or null;
-
-          # Used for backwards compatibility, please read the changelog before changing.
-          # $ darwin-rebuild changelog
-          system.stateVersion = 5;
-
-          # The platform the configuration will be used on.
-          nixpkgs.hostPlatform = "${system}"; # "aarch64-darwin";
-        };
     in
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .#simple
-      darwinConfigurations."river2056" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations.${nixProfile} = nix-darwin.lib.darwinSystem {
         specialArgs = {
+          inherit pkgs;
           inherit pkgs-stable;
+          inherit nixpkgs;
+          inherit self;
+          inherit system;
         };
         modules = [
-          configuration
+          ./configuration.nix
           inputs.nix-homebrew.darwinModules.nix-homebrew
           {
             nix-homebrew = {
@@ -209,6 +81,13 @@
       };
 
       # Expose the package set, including overlays, for convenience.
-      darwinPackages = self.darwinConfigurations."river2056".pkgs;
+      darwinPackages = self.darwinConfigurations.${nixProfile}.pkgs;
+
+      homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./home.nix
+        ];
+      };
     };
 }
