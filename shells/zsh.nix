@@ -1,7 +1,12 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  enabled,
+  ...
+}:
 {
   programs.zsh = {
-    enable = true;
+    enable = enabled;
     # enableAutosuggestions = true;
     # syntaxHighlighting.enable = true;
     enableCompletion = true;

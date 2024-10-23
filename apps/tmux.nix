@@ -1,7 +1,12 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  enabled,
+  ...
+}:
 {
   programs.tmux = {
-    enable = true;
+    enable = enabled;
     shell = "/bin/zsh";
     terminal = "xterm*:Tc";
     mouse = true;

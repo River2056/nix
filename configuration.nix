@@ -9,7 +9,10 @@
 }:
 {
   imports = [
-    ./shells/zsh.nix
+    (import ./shells/zsh.nix {
+      inherit config pkgs;
+      enabled = true;
+    })
   ];
   nixpkgs.config.allowUnfree = true;
   # List packages installed in system profile. To search by name, run:

@@ -1,10 +1,19 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  nixpkgs,
+  ...
+}:
 
 {
+  nixpkgs.config.allowUnfree = true;
   imports = [
     ./apps/wezterm.nix
     ./apps/lazygit.nix
-    ./apps/tmux.nix
+    (import ./apps/tmux.nix {
+      inherit config pkgs;
+      enabled = false;
+    })
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
