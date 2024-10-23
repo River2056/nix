@@ -75,6 +75,9 @@
     nodejs
     bun
 
+    # databases
+    redis
+
     #nixfmt
     nixfmt-rfc-style
 
