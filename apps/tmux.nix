@@ -58,7 +58,7 @@
       bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'xclip -se c -i'
 
       # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-      run '~/.tmux/plugins/tpm/tpm'
+      # run '~/.tmux/plugins/tpm/tpm'
     '';
   };
 }
