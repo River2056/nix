@@ -54,6 +54,8 @@
     casks = [
       "wezterm"
       "raycast"
+      "alt-tab"
+      "hiddenbar"
     ];
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
