@@ -37,3 +37,21 @@ and
 ```zsh
 ls ~/.nix-profile/bin/
 ```
+
+# home-manager
+unstable-branch
+```zsh
+nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+nix-channel --update 
+```
+
+lookup in the internet for stable-branch
+```zsh
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
+nix-channel --update
+```
+
+install home-manager for the first time (will manage itself after initial installation)
+```zsh
+nix-shell '<home-manager>' -A install 
+```

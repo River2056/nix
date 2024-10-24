@@ -86,7 +86,7 @@
       homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
-          inherit nixpkgs;
+          inherit nixpkgs user;
         };
         modules = [
           ./home.nix

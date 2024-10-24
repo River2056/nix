@@ -1,14 +1,13 @@
 {
   config,
   pkgs,
-  enabled,
   ...
 }:
 {
   programs.tmux = {
-    enable = enabled;
-    shell = "/bin/zsh";
-    terminal = "xterm*:Tc";
+    enable = true;
+    shell = "${pkgs.zsh}/bin/zsh";
+    terminal = "tmux-256color";
     mouse = true;
     plugins = with pkgs; [
       tmuxPlugins.tmux-fzf
@@ -23,8 +22,9 @@
       }
     ];
     keyMode = "vi";
+    clock24 = true;
     extraConfig = ''
-      set-option -sa terminal-overrides ",xterm*:Tc"
+      # set-option -sa terminal-overrides ",xterm*:Tc"
 
       # set prefix
       # unbind C-b

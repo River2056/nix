@@ -8,12 +8,6 @@
   ...
 }:
 {
-  imports = [
-    (import ./shells/zsh.nix {
-      inherit config pkgs;
-      enabled = true;
-    })
-  ];
   nixpkgs.config.allowUnfree = true;
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -28,7 +22,6 @@
       # fonts
       meslo-lgs-nf
       fira-code-nerdfont
-
     ])
     ++ (with pkgs-stable; [
       # editor
@@ -47,9 +40,9 @@
   homebrew = {
     enable = true;
     brews = [
-      "zsh-autosuggestions"
-      "zsh-syntax-highlighting"
-      "powerlevel10k"
+      # "zsh-autosuggestions"
+      # "zsh-syntax-highlighting"
+      # "powerlevel10k"
     ];
     casks = [
       "wezterm"

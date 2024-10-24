@@ -1,42 +1,62 @@
 {
   config,
   pkgs,
-  enabled,
+  user,
   ...
 }:
 {
   programs.zsh = {
-    enable = enabled;
-    # enableAutosuggestions = true;
-    # syntaxHighlighting.enable = true;
-    enableCompletion = true;
-    # initExtra = ''
-    #   # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-    #   # Initialization code that may require console input (password prompts, [y/n]
-    #   # confirmations, etc.) must go above this block; everything else may go below.
-    #   if [[ -r "\$\{XDG_CACHE_HOME:-$HOME/.cache\}/p10k-instant-prompt-\$\{(%):-%n\}.zsh" ]]; then
-    #     source "\$\{XDG_CACHE_HOME:-$HOME/.cache\}/p10k-instant-prompt-\$\{(%):-%n\}.zsh"
-    #   fi
+    enable = true;
+    localVariables = {
+      KEVIN_NVIM_HOME = "/Users/${user}";
+      # Path to your oh-my-zsh installation.
+      ZSH = "${pkgs.oh-my-zsh}/share/oh-my-zsh";
 
-    #   # If you come from bash you might have to change your $PATH.
-    #   # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-    #   # Path to your oh-my-zsh installation.
-    #   export ZSH="${pkgs.oh-my-zsh}/.oh-my-zsh"
-    #   export KEVIN_NVIM_HOME="/Users/tungchinchen"
-
-    #   # completion using arrow keys (based on history)
-    #   bindkey '^[[A' history-search-backward
-    #   bindkey '^[[B' history-search-forward
-    # '';
-    # theme = "powerlevel10k/powerlevel10k";
-    # oh-my-zsh = {
-    #   enable = true;
-    #   plugins = [
-    #     "git"
-    #     "zsh-nvm"
-    #     "vi-mode"
-    #   ];
-    # };
+      EDITOR = "nvim";
+    };
+    shellAliases = {
+      l = "ls -lah";
+      la = "ls -lAh";
+      lg = "lazygit";
+      ll = "ls -lh";
+      ls = "eza --icons=always";
+      lsa = "ls -lah";
+      mux = "tmuxinator";
+      vi = "nvim";
+      cat = "bat";
+    };
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "powerlevel10k-config";
+        src = ./p10k-config;
+        file = "p10k.zsh";
+      }
+    ];
+    autosuggestion = {
+      enable = true;
+      highlight = "fg=5";
+    };
+    syntaxHighlighting.enable = true;
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "git"
+        "vi-mode"
+      ];
+    };
+    history = {
+      path = "$HOME/.zhistory";
+      share = true;
+      ignoreDups = true;
+      expireDuplicatesFirst = true;
+    };
+    historySubstringSearch.searchUpKey = [ "^[[A" ];
+    historySubstringSearch.searchDownKey = [ "^[[B" ];
+    initExtra = (builtins.readFile (./. + "/extra.sh"));
   };
 }
