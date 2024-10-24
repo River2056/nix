@@ -38,7 +38,7 @@
     let
       # change user according to your machine if necessary
       nixProfile = "river2056";
-      user = "tungchinchen";
+      user = "kevintung";
       system = "aarch64-darwin";
       pkgs = inputs.nixpkgs.legacyPackages.${system};
       pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
@@ -66,7 +66,7 @@
               enableRosetta = true;
 
               # User owning the Homebrew prefix
-              user = "tungchinchen";
+              user = "kevintung";
               # Optional: Declarative tap management
               taps = {
                 "homebrew/homebrew-core" = inputs.homebrew-core;
@@ -74,7 +74,7 @@
               };
 
               # Automatically migrate existing Homebrew installations
-              # autoMigrate = true;
+              autoMigrate = true;
             };
           }
         ];
