@@ -9,7 +9,7 @@
 {
   nixpkgs.config.allowUnfree = true;
   imports = [
-    ./shells/zsh.nix
+    ./shells/zsh
     ./apps/wezterm.nix
     ./apps/lazygit.nix
     ./apps/tmux.nix
