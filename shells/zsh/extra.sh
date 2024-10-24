@@ -10,8 +10,8 @@ function y() {
     rm -f -- "$tmp"
 }
 
-eval "$(zoxide init --cmd cd zsh)"
-eval "$(fzf --zsh)"
+# eval "$(${pkgs.zoxide}/zoxide init --cmd cd zsh)"
+# eval "$(${pkgs.fzf}/fzf --zsh)"
 
 
 function showdiff() {

@@ -1,15 +1,25 @@
 {
   config,
   pkgs,
+  lib,
   nixpkgs,
   user,
+  profileDir,
   ...
 }:
 
 {
   nixpkgs.config.allowUnfree = true;
   imports = [
-    ./shells/zsh
+    (import ./shells/zsh {
+      inherit
+        config
+        pkgs
+        lib
+        user
+        profileDir
+        ;
+    })
     ./apps/wezterm.nix
     ./apps/lazygit.nix
     ./apps/tmux.nix

@@ -42,6 +42,7 @@
       system = "aarch64-darwin";
       pkgs = inputs.nixpkgs.legacyPackages.${system};
       pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
+      profileDir = "/Users/${user}/.nix-profile";
     in
     {
       # Build darwin flake using:
@@ -86,7 +87,7 @@
       homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = {
-          inherit nixpkgs user;
+          inherit nixpkgs user profileDir;
         };
         modules = [
           ./home.nix
