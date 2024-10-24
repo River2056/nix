@@ -2,18 +2,17 @@
   config,
   pkgs,
   nixpkgs,
+  user,
   ...
 }:
 
 {
   nixpkgs.config.allowUnfree = true;
   imports = [
+    ./shells/zsh.nix
     ./apps/wezterm.nix
     ./apps/lazygit.nix
-    (import ./apps/tmux.nix {
-      inherit config pkgs;
-      enabled = false;
-    })
+    ./apps/tmux.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -36,6 +35,10 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
+
+    # oh-my-zsh
+    oh-my-zsh
+
     # editor
     neovim
 
@@ -127,7 +130,7 @@
   #  /etc/profiles/per-user/tungchinchen/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "nvim";
+
   };
 
   # Let Home Manager install and manage itself.
