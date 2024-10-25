@@ -14,7 +14,7 @@
   environment.systemPackages =
     (with pkgs; [
       # shell
-      zsh
+      # zsh
 
       #utils
       mkalias
@@ -28,8 +28,6 @@
       vim
 
       # utils
-      tmux
-      tmuxinator
       wget
       curl
       sshpass
@@ -40,9 +38,9 @@
   homebrew = {
     enable = true;
     brews = [
-      # "zsh-autosuggestions"
-      # "zsh-syntax-highlighting"
-      # "powerlevel10k"
+      "zsh-autosuggestions"
+      "zsh-syntax-highlighting"
+      "powerlevel10k"
     ];
     casks = [
       "wezterm"

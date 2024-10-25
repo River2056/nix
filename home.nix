@@ -11,18 +11,18 @@
 {
   nixpkgs.config.allowUnfree = true;
   imports = [
-    (import ./shells/zsh {
-      inherit
-        config
-        pkgs
-        lib
-        user
-        profileDir
-        ;
-    })
+    # (import ./shells/zsh {
+    #   inherit
+    #     config
+    #     pkgs
+    #     lib
+    #     user
+    #     profileDir
+    #     ;
+    # })
     ./apps/wezterm.nix
     ./apps/lazygit.nix
-    ./apps/tmux.nix
+    # ./apps/tmux.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -72,6 +72,8 @@
     yq
     nb
     gnumake
+    tmux
+    tmuxinator
 
     # build systems
     maven
