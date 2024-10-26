@@ -74,6 +74,7 @@
     gnumake
     tmux
     tmuxinator
+    subversion
 
     # build systems
     maven
