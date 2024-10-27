@@ -10,9 +10,8 @@ function y() {
     rm -f -- "$tmp"
 }
 
-# eval "$(${pkgs.zoxide}/zoxide init --cmd cd zsh)"
-# eval "$(${pkgs.fzf}/fzf --zsh)"
-
+eval "$(zoxide init --cmd cd zsh)"
+eval "$(fzf --zsh)"
 
 function showdiff() {
     git diff-tree --no-commit-id --name-only $1 -r

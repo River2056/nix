@@ -1,14 +1,16 @@
 {
   config,
   pkgs,
+  profileDir,
   ...
 }:
 {
   programs.tmux = {
-    enable = false;
+    enable = true;
     shell = "${pkgs.zsh}/bin/zsh";
     terminal = "tmux-256color";
     mouse = true;
+    customPaneNavigationAndResize = true;
     plugins = with pkgs; [
       tmuxPlugins.tmux-fzf
       tmuxPlugins.sensible
@@ -16,15 +18,21 @@
       tmuxPlugins.yank
       {
         plugin = tmuxPlugins.power-theme;
-        extraConfig = ''
-          set -g @tmux_power_theme 'gold'
-        '';
+        extraConfig = # bash
+          ''
+            set -g @tmux_power_theme 'gold'
+          '';
       }
     ];
     keyMode = "vi";
     clock24 = true;
     extraConfig = ''
       # set-option -sa terminal-overrides ",xterm*:Tc"
+      set -g default-command "${pkgs.zsh}/bin/zsh -l"
+      set -g default-terminal "xterm-256color"
+      set -ga terminal-overrides ",*256col*:Tc"
+      set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
+      set-environment -g COLORTERM "truecolor"
 
       # set prefix
       # unbind C-b
@@ -34,12 +42,6 @@
       # navigation between windows
       bind -n Ó previous-window
       bind -n Ò next-window
-
-      # resize panes
-      bind-key -r ∆ resize-pane -D 1
-      bind-key -r ˚ resize-pane -U 1
-      bind-key -r ˙ resize-pane -L 1
-      bind-key -r ¬ resize-pane -R 1
 
       # swap windows
       bind-key -n ¯ swap-window -t -1\; select-window -t -1
@@ -56,9 +58,6 @@
       unbind -T copy-mode-vi Enter
       bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel 'xclip -se c -i'
       bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'xclip -se c -i'
-
-      # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-      # run '~/.tmux/plugins/tpm/tpm'
     '';
   };
 }

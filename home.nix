@@ -11,18 +11,25 @@
 {
   nixpkgs.config.allowUnfree = true;
   imports = [
-    # (import ./shells/zsh {
-    #   inherit
-    #     config
-    #     pkgs
-    #     lib
-    #     user
-    #     profileDir
-    #     ;
-    # })
+    (import ./shells/zsh {
+      inherit
+        config
+        pkgs
+        lib
+        user
+        profileDir
+        ;
+    })
     ./apps/wezterm.nix
     ./apps/lazygit.nix
-    # ./apps/tmux.nix
+    (import ./apps/tmux.nix {
+      inherit
+        config
+        pkgs
+        user
+        profileDir
+        ;
+    })
   ];
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -46,6 +53,7 @@
     # # "Hello, world!" when run.
     # pkgs.hello
 
+    zsh
     # oh-my-zsh
     oh-my-zsh
 
@@ -143,7 +151,10 @@
   #  /etc/profiles/per-user/tungchinchen/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-
+    EDITOR = "nvim";
+    KEVIN_NVIM_HOME = "/Users/${user}";
+    # ZSH = "${pkgs.oh-my-zsh}/share/oh-my-zsh";
+    # PATH = "${config.home.profileDirectory}/bin:${config.home.profileDirectory}:$PATH";
   };
 
   # Let Home Manager install and manage itself.

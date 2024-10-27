@@ -8,14 +8,7 @@
 }:
 {
   programs.zsh = {
-    enable = false;
-    localVariables = {
-      # KEVIN_NVIM_HOME = "/Users/${user}";
-      # Path to your oh-my-zsh installation.
-      ZSH = "${pkgs.oh-my-zsh}/share/oh-my-zsh";
-
-      # EDITOR = "nvim";
-    };
+    enable = true;
     shellAliases = {
       l = "ls -lah";
       la = "ls -lAh";
@@ -70,13 +63,13 @@
     };
     historySubstringSearch.searchUpKey = [ "^[[A" ];
     historySubstringSearch.searchDownKey = [ "^[[B" ];
+    initExtraFirst = # bash
+      ''
+         eval "$(brew shellenv)"
+      '';
     initExtra = lib.concatStrings [
       (builtins.readFile (./. + "/extra.sh"))
       (builtins.readFile (./. + "/custom_functions.sh"))
-      # "\nexport PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/Users/${user}/go/bin:/Users/${user}/.local/share/nvim/mason/bin:/Users/kevintung/.nix-profile/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin"
-      "\n export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/Users/${user}/go/bin:/Users/${user}/.local/share/nvim/mason/bin:$PATH"
-      "\n export KEVIN_NVIM_HOME=/Users/${user}"
-      "\n export EDITOR=nvim"
     ];
   };
 }
