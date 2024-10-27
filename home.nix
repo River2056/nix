@@ -34,8 +34,8 @@
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "kevintung";
-  home.homeDirectory = "/Users/kevintung";
+  home.username = "${user}";
+  home.homeDirectory = "/Users/${user}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -82,7 +82,6 @@
     gnumake
     tmux
     tmuxinator
-    subversion
 
     # build systems
     maven
@@ -153,8 +152,8 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     KEVIN_NVIM_HOME = "/Users/${user}";
-    # ZSH = "${pkgs.oh-my-zsh}/share/oh-my-zsh";
-    # PATH = "${config.home.profileDirectory}/bin:${config.home.profileDirectory}:$PATH";
+    ZSH = "${pkgs.oh-my-zsh}/share/oh-my-zsh";
+    PATH = "${config.home.profileDirectory}/bin:${config.home.profileDirectory}:$PATH";
   };
 
   # Let Home Manager install and manage itself.
