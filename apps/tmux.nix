@@ -35,9 +35,13 @@
       set-environment -g COLORTERM "truecolor"
 
       # set prefix
-      # unbind C-b
-      # set -g prefix C-Space
-      # bind C-Space send-prefix
+      unbind C-b
+      set -g prefix C-s
+      bind C-s send-prefix
+      set-option -g prefix2 C-b
+
+      bind s split-window -v
+      bind v split-window -h
 
       # navigation between windows
       bind -n Ó previous-window
