@@ -40,8 +40,8 @@
       bind C-s send-prefix
       set-option -g prefix2 C-b
 
-      bind s split-window -v
-      bind v split-window -h
+      bind - split-window -v
+      bind | split-window -h
 
       # navigation between windows
       bind -n Ó previous-window
