@@ -40,8 +40,11 @@
       bind C-s send-prefix
       set-option -g prefix2 C-b
 
-      bind - split-window -v
-      bind | split-window -h
+      bind - split-window -v -c "#{pane_current_path}"
+      bind | split-window -h -c "#{pane_current_path}"
+      bind  c  new-window      -c "#{pane_current_path}"
+      bind  %  split-window -h -c "#{pane_current_path}"
+      bind '"' split-window -v -c "#{pane_current_path}"
 
       # navigation between windows
       bind -n Ó previous-window

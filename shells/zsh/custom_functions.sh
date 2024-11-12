@@ -122,3 +122,13 @@ function dec() {
     echo $res
     echo $res | pbcopy
 }
+
+function rftp() {
+    echo "connect to rftp..."
+    lftp -u 'EBTWAS,Tb03750168@' 172.16.241.118 -e "cd $1"
+}
+
+function r2ftp() {
+    echo "connect to r2ftp..."
+    lftp -u 'T-EBANK,!QAZ2wsx' 172.17.240.203 -e "cd $1"
+}

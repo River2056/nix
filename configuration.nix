@@ -47,6 +47,7 @@
       "raycast"
       "alt-tab"
       "hiddenbar"
+      "skim"
     ];
     onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
@@ -99,4 +100,5 @@
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "${system}"; # "aarch64-darwin";
+
 }

@@ -25,8 +25,8 @@
       mc = "make clean run";
       mcd = "make clean debug";
       note = "nb edit 4";
-      r2ftp = "lftp -u 'T-EBANK,!QAZ2wsx' 172.17.240.203";
-      rftp = "lftp -u EBTWAS,Tb03750168@ 172.16.241.118";
+      # r2ftp = "lftp -u 'T-EBANK,!QAZ2wsx' 172.17.240.203";
+      # rftp = "lftp -u EBTWAS,Tb03750168@ 172.16.241.118";
       sit = "sshpass -p '>LO(/;p0' ssh nanoadmin@172.16.244.154";
       uat = "sshpass -p '>LO(/;p0' ssh nanoadmin@172.16.244.210";
       pt = "sshpass -p '>LO(/;p0' ssh ainkpdadmin@172.16.244.154";
@@ -65,7 +65,7 @@
     historySubstringSearch.searchDownKey = [ "^[[B" ];
     initExtraFirst = # bash
       ''
-         eval "$(brew shellenv)"
+        eval "$(brew shellenv)"
       '';
     initExtra = lib.concatStrings [
       (builtins.readFile (./. + "/extra.sh"))
