@@ -102,8 +102,11 @@
     # databases
     redis
 
-    #nixfmt
+    # nixfmt
     nixfmt-rfc-style
+
+    # dotfiles
+    stow
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
