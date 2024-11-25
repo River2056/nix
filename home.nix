@@ -85,9 +85,9 @@
     subversion
 
     # build systems
+    # docker
     maven
     gradle
-    docker
     ant
 
     # languages

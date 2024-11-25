@@ -48,8 +48,9 @@
       "alt-tab"
       "hiddenbar"
       "skim"
+      "docker"
     ];
-    onActivation.cleanup = "zap";
+    # onActivation.cleanup = "zap";
     onActivation.autoUpdate = true;
     onActivation.upgrade = true;
   };
